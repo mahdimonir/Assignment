@@ -64,45 +64,39 @@ function printBookDetails(book: Book): void {
 }
 
 type Primitive = string | number;
+
 function getUniqueValues(
   firstArray: readonly Primitive[],
   secondArray: readonly Primitive[]
 ): Primitive[] {
-  const uniqueValues: Primitive[] = [];
+  const result: Primitive[] = [];
+  const seen: Record<string, boolean> = {};
 
-  const isValueAlreadyPresent = (
-    array: readonly Primitive[],
-    valueToCheck: Primitive
-  ): boolean => {
-    for (let index = 0; index < array.length; index++) {
-      if (array[index] === valueToCheck) {
-        return true;
-      }
-    }
-    return false;
+  const alreadySeen = (value: Primitive): boolean => {
+    return seen[String(value)] === true;
   };
 
-  for (let index = 0; index < firstArray.length; index++) {
-    const currentValue = firstArray[index];
-    if (
-      currentValue !== undefined &&
-      !isValueAlreadyPresent(uniqueValues, currentValue)
-    ) {
-      uniqueValues[uniqueValues.length] = currentValue;
+  const markAsSeen = (value: Primitive): void => {
+    seen[String(value)] = true;
+  };
+
+  for (let i = 0; i < firstArray.length; i++) {
+    const value = firstArray[i];
+    if (value !== undefined && value !== null && !alreadySeen(value)) {
+      markAsSeen(value);
+      result[result.length] = value;
     }
   }
 
-  for (let index = 0; index < secondArray.length; index++) {
-    const currentValue = secondArray[index];
-    if (
-      currentValue !== undefined &&
-      !isValueAlreadyPresent(uniqueValues, currentValue)
-    ) {
-      uniqueValues[uniqueValues.length] = currentValue;
+  for (let i = 0; i < secondArray.length; i++) {
+    const value = secondArray[i];
+    if (value !== undefined && value !== null && !alreadySeen(value)) {
+      markAsSeen(value);
+      result[result.length] = value;
     }
   }
 
-  return uniqueValues;
+  return result;
 }
 
 type Product = {
