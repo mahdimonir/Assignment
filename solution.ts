@@ -27,7 +27,7 @@ class Person {
     this.age = age;
   }
   getDetails() {
-    return `Name: ${this.name}, Age: ${this.age}`;
+    return `'Name: ${this.name}, Age: ${this.age}'`;
   }
 }
 
