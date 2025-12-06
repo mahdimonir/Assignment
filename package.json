@@ -7,7 +7,7 @@
     "dev": "npx tsx watch ./src/server.ts",
     "build": "tsc",
     "start": "tsx src/server.ts",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run start"
   },
   "keywords": [],
   "author": "",
