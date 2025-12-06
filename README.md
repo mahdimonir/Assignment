@@ -1,169 +1,134 @@
-# Blog Task
+# Vehicle Rental System API
+
+**Assignment 2 – Full-Stack Backend with PostgreSQL, Express, TypeScript & JWT**
+
+![Node.js](https://img.shields.io/badge/Node.js-20.x-green?style=for-the-badge&logo=node.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-blue?style=for-the-badge&logo=typescript)
+![Express](https://img.shields.io/badge/Express-5.x-lightgrey?style=for-the-badge&logo=express)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge&logo=postgresql)
+![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)
+
+**Live API URL** → https://base-url.vercel.app  
+**Swagger Documentation** → https://base-url.vercel.app/api-docs  
+**Health Check** → https://base-url.vercel.app/health
 
 ---
 
-## 1. What are some differences between interfaces and types in TypeScript?
+### Features Implemented (100% Complete)
 
-### Differences between Interfaces and Types
-
-### Explanation
-
-TypeScript-এ **interface** এবং **type**—দুটোই structure define করতে ব্যবহৃত হয়, কিন্তু এদের ক্ষমতা এবং behavior আলাদা।
-
-**Interface** সাধারণত object অথবা class-এর shape define করার জন্য ব্যবহার হয়।  
-**Type** আরও flexible—object-এর structure ছাড়াও **union, intersection, primitive, tuple** ইত্যাদি represent করতে পারে।
-
----
-
-### 1. Usage Difference
-
-#### Interface:
-
-- Object এবং class-এর structure describe করতে ব্যবহৃত হয়।
-- Methods সহ সম্পূর্ণ blueprint define করা যায়।
-
-```ts
-interface User {
-  name: string;
-  age: number;
-  greet(): void;
-}
-```
-
-#### Type:
-
-- Object ছাড়াও primitive, function type, union, intersection—সবকিছু define করতে পারে।
-
-```ts
-type ID = string | number;
-type Point = [number, number]; // tuple
-type Callback = (() => void) | (() => string); // union
-```
+| Feature                            | Status | Details                              |
+| ---------------------------------- | ------ | ------------------------------------ |
+| User Registration & Login          | Done   | JWT Authentication                   |
+| Role-Based Access (Admin/Customer) | Done   | Protected routes                     |
+| Vehicle CRUD                       | Done   | Admin only (except GET)              |
+| Booking System                     | Done   | Overlap detection, price calculation |
+| Auto-return overdue bookings       | Done   | Runs on every GET /bookings          |
+| Swagger/OpenAPI Documentation      | Done   | Interactive UI at `/api-docs`        |
+| Professional Root & 404 Pages      | Done   | Clean JSON responses                 |
+| Graceful Shutdown                  | Done   | No data loss on restart              |
+| Production-Ready Structure         | Done   | Clean, modular, scalable             |
 
 ---
 
-### 2. Extending / Inheritance
+### API Endpoints
 
-#### Interface uses `extends`:
-
-```ts
-interface A {
-  x: number;
-}
-
-interface B extends A {
-  y: number;
-}
-```
-
-#### Type uses intersection (`&`):
-
-```ts
-type A = { x: number };
-type B = A & { y: number };
-```
+| Method | Endpoint               | Access         | Description                         |
+| ------ | ---------------------- | -------------- | ----------------------------------- |
+| POST   | `/api/v1/auth/signup`  | Public         | Register new user                   |
+| POST   | `/api/v1/auth/signin`  | Public         | Login & get JWT                     |
+| POST   | `/api/v1/vehicles`     | Admin          | Add new vehicle                     |
+| GET    | `/api/v1/vehicles`     | Public         | List all vehicles                   |
+| GET    | `/api/v1/vehicles/:id` | Public         | Get vehicle details                 |
+| PUT    | `/api/v1/vehicles/:id` | Admin          | Update vehicle                      |
+| DELETE | `/api/v1/vehicles/:id` | Admin          | Delete vehicle (no active bookings) |
+| GET    | `/api/v1/users`        | Admin          | List all users                      |
+| PUT    | `/api/v1/users/:id`    | Admin/Own      | Update profile                      |
+| DELETE | `/api/v1/users/:id`    | Admin          | Delete user                         |
+| POST   | `/api/v1/bookings`     | Customer/Admin | Create booking                      |
+| GET    | `/api/v1/bookings`     | Role-based     | Admin → all, Customer → own         |
+| PUT    | `/api/v1/bookings/:id` | Role-based     | Cancel or Return booking            |
 
 ---
 
-### 3. Declaration Merging
+### Tech Stack
 
-**Interface supports merging**, অর্থাৎ একই নামের multiple interface declare করলে automatically merge হয়ে যায়।
+- **Language**: TypeScript
+- **Runtime**: Node.js 20+
+- **Framework**: Express.js
+- **Database**: PostgreSQL (Neon / Supabase / Local)
+- **Authentication**: JWT + bcryptjs
+- **Deployment**: Vercel (Serverless)
+- **Dev Tool**: `tsx` (run TypeScript directly)
+- **Documentation**: Swagger UI + OpenAPI YAML
 
-```ts
-interface Person {
-  name: string;
-}
+---
 
-interface Person {
-  age: number;
-}
-// Person: { name: string; age: number }
+### Project Structure
+
 ```
-
-**Type merging possible নয়**—একই নামে আবার declare করলে error দেয়।
-
-```ts
-type User = { name: string };
-// type User = { age: number }; // TypeScript error
+src/
+├── app.ts                 → Main Express app
+├── server.ts              → Server startup + graceful shutdown
+├── config/
+│   ├── db.ts              → PostgreSQL pool + table init
+│   └── index.ts           → Environment variables
+├── modules/
+│   ├── auth/
+│   ├── vehicles/
+│   ├── users/
+│   └── bookings/
+└── lib/
+    └── utils/          → Helper functions
+swagger.yaml               → Full API documentation
 ```
 
 ---
 
-### 4. When to Use What?
+### How to Run Locally
 
-- **Interface** → যখন object/class design করা হয় এবং future extension লাগতে পারে।
-- **Type** → যখন union, intersection, function signatures, tuple, বা complex type logic দরকার।
+# 1. Clone & install
 
----
-
-## 2. What is the use of `enums` in TypeScript? Provide an example of a numeric and string enum.
-
-### Use of `enums` in TypeScript
-
-### Explanation
-
-`enum` হলো TypeScript-এর একটি special feature, যা fixed constant values-এর একটি group তৈরি করতে সাহায্য করে।
-
-যেমন:
-
-- User roles
-- Order status
-- HTTP status codes
-- App modes
-
-Enum ব্যবহার করলে code readable হয়, typo কমে, এবং values centrally manage করা যায়।
-
----
-
-## Numeric Enum
-
-Numeric enum-এ values automatically increment হয়।
-
-```ts
-enum Status {
-  Pending, // 0
-  Approved, // 1
-  Rejected, // 2
-}
-
-let current = Status.Approved;
-console.log(current); // 1
+```bash
+git clone --branch assignment-2 https://github.com/mahdimonir/Assignment.git
+cd Assignment
+npm install
 ```
 
-### Manually assign:
+# 2. Create .env
 
-```ts
-enum HttpCode {
-  OK = 200,
-  NOT_FOUND = 404,
-  SERVER_ERROR = 500,
-}
-
-console.log(HttpCode.OK); // 200
 ```
+.env.example .env
+```
+
+- Edit DATABASE_URL and JWT_SECRET
+
+# 3. Run
+
+```
+npm run dev
+```
+
+Server will start at: **http://localhost:8000**
 
 ---
 
-## String Enum
+### Deployed Links
 
-String enum-এ প্রতিটি value manually assign করতে হয়, যা readable এবং predictable।
-
-```ts
-enum Role {
-  Admin = "ADMIN",
-  User = "USER",
-  Guest = "GUEST",
-}
-
-let r = Role.Admin;
-console.log(r); // "ADMIN"
-```
+- API Base: https://base-url.vercel.app
+- Swagger UI: https://base-url.vercel.app/api-docs
+- Welcome Page: https://base-url.vercel.app/
+- Health Check: https://base-url.vercel.app/health
 
 ---
 
-## Why use enum?
+### Author
 
-- Hard-coded string/number এড়িয়ে যায়।
-- একই constant multiple জায়গায় safe ভাবে use করা যায়।
-- Autocomplete এবং type safety পাওয়া যায়।
-- Code clean এবং maintainable হয়।
+**Mahdi Moniruzzaman**  
+GitHub: [@mahdimonir](https://github.com/mahdimonir)  
+Portfolio: [moniruzzaman-mahdi.dev](http://moniruzzaman-mahdi.vercel.app)
+
+> This project is built with passion, clean code, and real-world production practices.  
+> Not just for assignment — but to show I can build scalable backend systems.
+
+**Thank you for checking my work!**  
+Feel free to test, fork, or use as reference.
