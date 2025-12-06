@@ -1,0 +1,57 @@
+instructions.md
+API_REFERENCE.md
+# Node.js / npm
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Build & Dist
+dist/
+build/
+.out/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Vercel
+.vercel
+.vercel_build_output/
+
+# Database (if you ever have local dump)
+*.sql
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# IDE
+*.swp
+*.swo
