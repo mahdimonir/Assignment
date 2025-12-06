@@ -1,11 +1,11 @@
-import initDB from "@/config/db";
-import { authRoutes } from "@/modules/auth/auth.routes";
-import { bookingRoutes } from "@/modules/bookings/bookings.routes";
-import { userRoutes } from "@/modules/users/users.routes";
-import { vehicleRoutes } from "@/modules/vehicles/vehicles.routes";
 import express, { Application, NextFunction, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
+import * as yaml from "yamljs";
+import initDB from "./config/db";
+import { authRoutes } from "./modules/auth/auth.routes";
+import { bookingRoutes } from "./modules/bookings/bookings.routes";
+import { userRoutes } from "./modules/users/users.routes";
+import { vehicleRoutes } from "./modules/vehicles/vehicles.routes";
 
 const app: Application = express();
 
@@ -58,7 +58,7 @@ app.use("/api/v1/bookings", bookingRoutes);
 
 // Swagger UI
 try {
-  const swaggerDocument = YAML.load("./swagger.yaml");
+  const swaggerDocument = yaml.load("./swagger.yaml");
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 } catch (err) {
   console.error("Failed to load swagger.yaml:", err);

@@ -2,12 +2,12 @@
   "name": "vehicle-rental-system",
   "version": "1.0.0",
   "description": "A backend API for a vehicle rental management system.",
-  "main": "src/server.ts",
+  "main": "index.js",
   "scripts": {
-    "dev": "npx tsx watch src/server.ts",
-    "build": "tsc && tsc-alias",
-    "start": "node dist/server.js",
-    "vercel-build": "npm run build"
+    "dev": "npx tsx watch ./src/server.ts",
+    "build": "tsc",
+    "start": "tsx src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -27,7 +27,6 @@
     "@types/pg": "^8.15.6",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/yamljs": "^0.2.34",
-    "tsc-alias": "^1.8.16",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }

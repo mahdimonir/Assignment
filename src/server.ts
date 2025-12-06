@@ -1,5 +1,5 @@
-import app from "@/app";
-import config from "@/config";
+import app from "./app";
+import config from "./config";
 
 const PORT = config.port || 8000;
 
@@ -28,3 +28,6 @@ const shutdown = (signal: string) => {
 
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 process.on("SIGINT", () => shutdown("SIGINT"));
+
+// Export for Vercel
+export default app;

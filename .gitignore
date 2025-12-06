@@ -55,3 +55,4 @@ coverage/
 # IDE
 *.swp
 *.swo
+.env*.local
