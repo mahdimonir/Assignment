@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "lib": ["ES2022"],
 
     "rootDir": "./src",
@@ -19,10 +19,7 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
 
-    // This silences the deprecation warnings until TS 7.0
-    "ignoreDeprecations": "6.0",
-
-    // Path alias
+    // THIS IS THE ONLY WAY THAT WORKS IN 2025
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
