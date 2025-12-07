@@ -20,7 +20,7 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// Initialize DB tables (non-blocking for serverless)
+// Initialize DB tables
 initDB()
   .then(() => {
     console.log("PostgreSQL connected & tables initialized");
