@@ -1,5 +1,4 @@
-# Vehicle Rental System API
-
+# [Vehicle Rental System API](https://vehicle-rental-system-ruddy.vercel.app)
 **Assignment 2 – Full-Stack Backend with PostgreSQL, Express, TypeScript & JWT**
 
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-green?style=for-the-badge&logo=node.js)
@@ -10,43 +9,52 @@
 
 **Live API URL** → https://vehicle-rental-system-ruddy.vercel.app  
 **Swagger Documentation** → https://vehicle-rental-system-ruddy.vercel.app/api-docs  
-**Health Check** → https://vehicle-rental-system-ruddy.vercel.app/health
+**Health Check** → https://vehicle-rental-system-ruddy.vercel.app/health  
+
+---
+
+### Demo Accounts (Already Created on Live Server)
+
+| Role     | Email                    | Password |
+|----------|--------------------------|----------|
+| Admin    | `admin@example.com`      | `123456` |
+| Customer | `customer@example.com`   | `123456` |
+
+→ Just login with these → test everything instantly!
 
 ---
 
 ### Features Implemented (100% Complete)
 
-| Feature                            | Status | Details                              |
-| ---------------------------------- | ------ | ------------------------------------ |
-| User Registration & Login          | Done   | JWT Authentication                   |
-| Role-Based Access (Admin/Customer) | Done   | Protected routes                     |
-| Vehicle CRUD                       | Done   | Admin only (except GET)              |
-| Booking System                     | Done   | Overlap detection, price calculation |
-| Auto-return overdue bookings       | Done   | Runs on every GET /bookings          |
-| Swagger/OpenAPI Documentation      | Done   | Interactive UI at `/api-docs`        |
-| Professional Root & 404 Pages      | Done   | Clean JSON responses                 |
-| Graceful Shutdown                  | Done   | No data loss on restart              |
-| Production-Ready Structure         | Done   | Clean, modular, scalable             |
+| Feature                         | Status | Details |
+|----------------------------------|--------|--------|
+| User Registration & Login        | Done   | JWT Authentication |
+| Role-Based Access (Admin/Customer) | Done   | Protected routes |
+| Vehicle CRUD                     | Done   | Admin only (except GET) |
+| Booking System                   | Done   | Overlap detection, price calculation |
+| Auto-return overdue bookings     | Done   | Runs on every GET /bookings |
+| Swagger/OpenAPI Documentation    | Done   | Interactive UI at `/api-docs` |
+| Production-Ready Structure       | Done   | Clean, modular, scalable |
 
 ---
 
 ### API Endpoints
 
-| Method | Endpoint               | Access         | Description                         |
-| ------ | ---------------------- | -------------- | ----------------------------------- |
-| POST   | `/api/v1/auth/signup`  | Public         | Register new user                   |
-| POST   | `/api/v1/auth/signin`  | Public         | Login & get JWT                     |
-| POST   | `/api/v1/vehicles`     | Admin          | Add new vehicle                     |
-| GET    | `/api/v1/vehicles`     | Public         | List all vehicles                   |
-| GET    | `/api/v1/vehicles/:id` | Public         | Get vehicle details                 |
-| PUT    | `/api/v1/vehicles/:id` | Admin          | Update vehicle                      |
-| DELETE | `/api/v1/vehicles/:id` | Admin          | Delete vehicle (no active bookings) |
-| GET    | `/api/v1/users`        | Admin          | List all users                      |
-| PUT    | `/api/v1/users/:id`    | Admin/Own      | Update profile                      |
-| DELETE | `/api/v1/users/:id`    | Admin          | Delete user                         |
-| POST   | `/api/v1/bookings`     | Customer/Admin | Create booking                      |
-| GET    | `/api/v1/bookings`     | Role-based     | Admin → all, Customer → own         |
-| PUT    | `/api/v1/bookings/:id` | Role-based     | Cancel or Return booking            |
+| Method | Endpoint                        | Access      | Description                     |
+|--------|----------------------------------|-------------|---------------------------------|
+| POST   | `/api/v1/auth/signup`            | Public      | Register new user               |
+| POST   | `/api/v1/auth/signin`            | Public      | Login & get JWT                 |
+| POST   | `/api/v1/vehicles`               | Admin       | Add new vehicle                 |
+| GET    | `/api/v1/vehicles`               | Public      | List all vehicles               |
+| GET    | `/api/v1/vehicles/:id`           | Public      | Get vehicle details             |
+| PUT    | `/api/v1/vehicles/:id`           | Admin       | Update vehicle                  |
+| DELETE | `/api/v1/vehicles/:id`           | Admin       | Delete vehicle (no active bookings) |
+| GET    | `/api/v1/users`                  | Admin       | List all users                  |
+| PUT    | `/api/v1/users/:id`              | Admin/Own   | Update profile                  |
+| DELETE | `/api/v1/users/:id`              | Admin       | Delete user                     |
+| POST   | `/api/v1/bookings`               | Customer/Admin | Create booking               |
+| GET    | `/api/v1/bookings`               | Role-based  | Admin → all, Customer → own     |
+| PUT    | `/api/v1/bookings/:id`           | Role-based  | Cancel or Return booking        |
 
 ---
 
@@ -55,11 +63,11 @@
 - **Language**: TypeScript
 - **Runtime**: Node.js 20+
 - **Framework**: Express.js
-- **Database**: PostgreSQL (Neon / Supabase / Local)
+- **Database**: PostgreSQL (Neon)
 - **Authentication**: JWT + bcryptjs
-- **Deployment**: Vercel (Serverless)
+- **Deployment**: Vercel
 - **Dev Tool**: `tsx` (run TypeScript directly)
-- **Documentation**: Swagger UI + OpenAPI YAML
+- **Documentation**: Swagger UI + OpenAPI with json
 
 ---
 
@@ -68,7 +76,7 @@
 ```
 src/
 ├── app.ts                 → Main Express app
-├── server.ts              → Server startup + graceful shutdown
+├── server.ts              → Server startup
 ├── config/
 │   ├── db.ts              → PostgreSQL pool + table init
 │   └── index.ts           → Environment variables
@@ -77,38 +85,30 @@ src/
 │   ├── vehicles/
 │   ├── users/
 │   └── bookings/
-└── lib/
-    └── utils/          → Helper functions
-swagger.yaml               → Full API documentation
+├── lib/
+│   └── utils/             → Helper functions
+└── swagger.json           → Full API documentation
 ```
 
 ---
 
 ### How to Run Locally
 
-# 1. Clone & install
-
 ```bash
+# 1. Clone Assignment 2 branch
 git clone --branch assignment-2 https://github.com/mahdimonir/Assignment.git
 cd Assignment
 npm install
-```
 
-# 2. Create .env
-
-```
-.env.example .env
-```
-
-- Edit DATABASE_URL and JWT_SECRET
+# 2. Create .env (copy from .env.example)
+cp .env.example .env
+# Edit DATABASE_URL and JWT_SECRET
 
 # 3. Run
-
-```
 npm run dev
 ```
 
-Server will start at: **http://localhost:8000**
+Server starts at: **http://localhost:8000**
 
 ---
 
@@ -121,14 +121,14 @@ Server will start at: **http://localhost:8000**
 
 ---
 
-### Author
+### [Author](https://moniruzzaman-mahdi.vercel.app/)
 
 **Mahdi Moniruzzaman**  
 GitHub: [@mahdimonir](https://github.com/mahdimonir)  
 Portfolio: [moniruzzaman-mahdi.dev](http://moniruzzaman-mahdi.vercel.app)
 
-> This project is built with passion, clean code, and real-world production practices.  
-> Not just for assignment — but to show I can build scalable backend systems.
-
 **Thank you for checking my work!**  
 Feel free to test, fork, or use as reference.
+
+---
+**Demo Accounts Ready — Just Login & Test Everything!**
