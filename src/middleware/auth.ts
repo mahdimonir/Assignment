@@ -1,6 +1,6 @@
-import config from "@/config";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import config from "../config";
 
 export const authMiddleware = (roles: string[] = []) => {
   return (req: Request, res: Response, next: NextFunction) => {

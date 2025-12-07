@@ -1,6 +1,6 @@
-import { pool } from "@/config/db";
-import { isPastDate } from "@/lib/utils/date";
-import updateOverdueBookings from "@/lib/utils/updateOverdueBookings";
+import { pool } from "../../config/db";
+import { isPastDate } from "../../lib/utils/date";
+import updateOverdueBookings from "../../lib/utils/updateOverdueBookings";
 
 const createBooking = async (
   payload: any,

@@ -1,0 +1,273 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Vehicle Rental System API",
+    "description": "Complete backend API for vehicle rental management with role-based authentication",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://vehicle-rental-system-jade.vercel.app/api/v1",
+      "description": "Production"
+    },
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Local Development"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "summary": "Register New User",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "password", "phone"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "minLength": 6 },
+                  "phone": { "type": "string" },
+                  "role": { "type": "string", "enum": ["customer", "admin"], "default": "customer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully" }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "summary": "Login User",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login successful" }
+        }
+      }
+    },
+    "/vehicles": {
+      "get": {
+        "summary": "Get All Vehicles (Public)",
+        "tags": ["Vehicles"],
+        "responses": {
+          "200": { "description": "List of vehicles" }
+        }
+      },
+      "post": {
+        "summary": "Create Vehicle (Admin only)",
+        "tags": ["Vehicles"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["vehicle_name", "registration_number", "daily_rent_price"],
+                "properties": {
+                  "vehicle_name": { "type": "string" },
+                  "type": { "type": "string" },
+                  "registration_number": { "type": "string" },
+                  "daily_rent_price": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Vehicle created" }
+        }
+      }
+    },
+    "/vehicles/{vehicleId}": {
+      "get": {
+        "summary": "Get Vehicle by ID",
+        "tags": ["Vehicles"],
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Vehicle details" }
+        }
+      },
+      "put": {
+        "summary": "Update Vehicle (Admin only)",
+        "tags": ["Vehicles"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Vehicle updated" }
+        }
+      },
+      "delete": {
+        "summary": "Delete Vehicle (Admin only)",
+        "tags": ["Vehicles"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Vehicle deleted" }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get All Users (Admin only)",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "List of users" }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "put": {
+        "summary": "Update User (Admin or Own)",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User updated" }
+        }
+      },
+      "delete": {
+        "summary": "Delete User (Admin only)",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User deleted" }
+        }
+      }
+    },
+    "/bookings": {
+      "get": {
+        "summary": "Get Bookings (Admin → All, Customer → Own)",
+        "tags": ["Bookings"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Bookings list" }
+        }
+      },
+      "post": {
+        "summary": "Create Booking",
+        "tags": ["Bookings"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["vehicle_id", "rent_start_date", "rent_end_date"],
+                "properties": {
+                  "vehicle_id": { "type": "integer" },
+                  "rent_start_date": { "type": "string", "format": "date" },
+                  "rent_end_date": { "type": "string", "format": "date" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Booking created" }
+        }
+      }
+    },
+    "/bookings/{bookingId}": {
+      "put": {
+        "summary": "Update Booking Status (cancelled / returned)",
+        "tags": ["Bookings"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["status"],
+                "properties": {
+                  "status": { "type": "string", "enum": ["cancelled", "returned"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Booking status updated" }
+        }
+      }
+    }
+  }
+}
