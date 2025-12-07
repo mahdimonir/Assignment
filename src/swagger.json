@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://vehicle-rental-system-jade.vercel.app/api/v1",
+      "url": "https://vehicle-rental-system-ruddy.vercel.app/api/v1",
       "description": "Production"
     },
     {

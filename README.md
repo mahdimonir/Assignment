@@ -8,9 +8,9 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge&logo=postgresql)
 ![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)
 
-**Live API URL** → https://base-url.vercel.app  
-**Swagger Documentation** → https://base-url.vercel.app/api-docs  
-**Health Check** → https://base-url.vercel.app/health
+**Live API URL** → https://vehicle-rental-system-ruddy.vercel.app  
+**Swagger Documentation** → https://vehicle-rental-system-ruddy.vercel.app/api-docs  
+**Health Check** → https://vehicle-rental-system-ruddy.vercel.app/health
 
 ---
 
@@ -114,10 +114,10 @@ Server will start at: **http://localhost:8000**
 
 ### Deployed Links
 
-- API Base: https://base-url.vercel.app
-- Swagger UI: https://base-url.vercel.app/api-docs
-- Welcome Page: https://base-url.vercel.app/
-- Health Check: https://base-url.vercel.app/health
+- API Base: https://vehicle-rental-system-ruddy.vercel.app
+- Swagger UI: https://vehicle-rental-system-ruddy.vercel.app/api-docs
+- Welcome Page: https://vehicle-rental-system-ruddy.vercel.app/
+- Health Check: https://vehicle-rental-system-ruddy.vercel.app/health
 
 ---
 
