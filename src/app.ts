@@ -1,13 +1,20 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import path from "path";
 import swaggerUi from "swagger-ui-express";
-import * as yaml from "yamljs";
 import initDB from "./config/db";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { bookingRoutes } from "./modules/bookings/bookings.routes";
 import { userRoutes } from "./modules/users/users.routes";
 import { vehicleRoutes } from "./modules/vehicles/vehicles.routes";
+import swaggerDocument from "./swagger.json";
 
 const app: Application = express();
+
+// Serve Swagger UI static files
+app.use(
+  "/swagger-ui",
+  express.static(path.join(__dirname, "../node_modules/swagger-ui-dist"))
+);
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));
@@ -57,12 +64,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 
 // Swagger UI
-try {
-  const swaggerDocument = yaml.load("./swagger.yaml");
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-} catch (err) {
-  console.error("Failed to load swagger.yaml:", err);
-}
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Not found
 app.use((req: Request, res: Response) => {
@@ -70,7 +72,7 @@ app.use((req: Request, res: Response) => {
     success: false,
     message: "Route not found",
     requested: req.originalUrl,
-    tip: "Visit /api-docs for API documentation",
+    tip: `Visit /api-docs for API documentation`,
   });
 });
 
