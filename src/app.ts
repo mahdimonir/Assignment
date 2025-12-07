@@ -20,14 +20,14 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// Initialize DB tables
+// Initialize DB tables (non-blocking for serverless)
 initDB()
   .then(() => {
     console.log("PostgreSQL connected & tables initialized");
   })
   .catch((err) => {
     console.error("Database connection failed:", err);
-    process.exit(1);
+    // Don't call process.exit() in serverless - it crashes the function
   });
 
 // Health Check
