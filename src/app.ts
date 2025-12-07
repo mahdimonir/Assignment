@@ -27,7 +27,6 @@ initDB()
   })
   .catch((err) => {
     console.error("Database connection failed:", err);
-    // Don't call process.exit() in serverless - it crashes the function
   });
 
 // Health Check
