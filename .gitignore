@@ -1,4 +1,7 @@
 instructions.md
+QUERY.md
+SUBMISSION.md
+
 # Node.js / npm
 node_modules/
 npm-debug.log
@@ -38,7 +41,7 @@ Thumbs.db
 .vercel_build_output/
 
 # Database (if you ever have local dump)
-*.sql
+# *.sql
 *.sqlite
 *.db
 
