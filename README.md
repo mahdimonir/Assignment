@@ -20,7 +20,7 @@ All queries are in `queries.sql` file:
 
 ### Theory Questions (Viva Video)
 
-**Video Link**: https://drive.google.com/file/d/1aNSiR_Npyq0Nvs4-KX5yIGJZcXBxiEbr/view?usp=drive_link
+**Video Link**: https://drive.google.com/file/d/1TOlVkqmDjY9dTwCCQaZ87aXV3Pu1tUw2/view
 
 Covered:
 
@@ -31,6 +31,6 @@ Covered:
 
 ### GitHub Repository
 
-https://github.com/mahdimonir/Assignment/tree/assignment-3
+https://github.com/mahdimonir/Assignment
 
 Thank you for reviewing my work!
